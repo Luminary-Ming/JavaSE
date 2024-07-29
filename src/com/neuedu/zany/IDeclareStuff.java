@@ -1,5 +1,10 @@
 package com.neuedu.zany;
 
+/**
+ * 接口中都是抽象方法，默认访问权限修饰符是 public
+ * 类中的方法默认访问权限修饰符是 default
+ * 在类实现接口，方法重写时，访问权限修饰符必须写上 public
+ */
 public interface IDeclareStuff {
     public static final int EASY = 3;
 

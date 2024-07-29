@@ -1,5 +1,8 @@
 package com.neuedu.zany;
 
+/**
+ * static 修饰的静态变量被所有实例（对象）共享
+ */
 public class StaticFoo {
     // 成员变量
     int num;
@@ -23,6 +26,6 @@ public class StaticFoo {
     }
 }
 /**
- * static 修饰的静态变量全局使用，被所有实例（对象）共享，因此 x 不断变化；
+ * static 修饰的静态变量被所有实例（对象）共享，因此 x 不断变化；
  * 而 num 是成员变量，成员变量随着对象的创建而存在，随着对象的回收而释放。
  */

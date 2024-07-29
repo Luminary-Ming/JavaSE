@@ -1,8 +1,15 @@
 package com.neuedu.zany;
 
+/**
+ * static 修饰的静态方法
+ * 1. 可以直接用类名调用
+ * 2. 静态方法也有方法的重载（两个必须都是静态方法）
+ * 3. 不能定义与静态方法名相同的普通方法
+ * 3. static 不能修饰构造方法
+ */
 public class SuperCalc {
 
-    // 普通方法
+    // 静态方法
     protected static int multiply(int a, int b) {
         return a * b;
     }
@@ -25,13 +32,13 @@ class SubCalc extends SuperCalc {
      */
 
     /**
-     // 报错：定义了与静态方法名相同的普通方法
+     // 报错：不能定义与静态方法名相同的普通方法
      public  int multiply(int a, int b) {
      }
      */
 
     /**
-     // 报错：static 修饰的构造方法
+     // 报错：static 不能修饰构造方法
      public static SubCalc(){}
      */
 

@@ -1,5 +1,8 @@
 package com.neuedu.zany;
 
+/**
+ * 子类继承父类时，子类的构造方法下（不管有没有参数）默认有一个 super()
+ */
 public class People {
 
     String name;
@@ -19,7 +22,8 @@ class Child extends People {
 
     public Child(String name) {
         // 这里默认会有一个
-        // super();
+        // super();  和子类构造方法中有没有参数无关，只能是有 super(name) 时
+        super();
         System.out.print(3);
         this.name = name;
         father = new People(name + ":F");
