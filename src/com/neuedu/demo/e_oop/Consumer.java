@@ -61,7 +61,7 @@ class Man extends Person {
         // 未经过上溯造型而直接下溯造型
         Man s1 = (Man) p1;   // 运行报错：ClassCastException
 
-        // 经过上溯造型而直接下溯造型
+        // 经过上溯造型后再下溯造型
         Person p2 = new Man();
         Man s2 = (Man) p2;   // 运行不会报错
     }
