@@ -1,4 +1,4 @@
-package com.neuedu.demo.h._exception;
+package com.neuedu.demo.h_exception;
 
 public class Exception01 {
     public static void main(String[] args){

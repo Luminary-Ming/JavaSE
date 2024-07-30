@@ -4,16 +4,13 @@ package com.neuedu.zany;
  * 三目运算符的特性
  */
 public class Conditional {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         int x = 4;
         System.out.println("value is " + ((x > 4) ? 99.9 : 9));  // value is 9.0
     }
 }
-
 /**
- * 三目运算过程中数据类型会进行自动（或者说强制）转换为精度高的，具体的转换规则：
- * 1. 两个表达式是常量，结果自动转换为精度高的，
- * 2. 99.9 是 double 类型 9 是 int 类型结果是 9 转换为精度高的 double 类型 输出结果是 9.0
- *
- * 这是运算符共有的特性，例： System.out.println(5 / 2.0); 输出是 2.5   小的转换成大的
+ * 我们知道算术运算符中（+、-、*、/）在计算时，会把 精度低的数据类型（比如int） 自动转换成 精度高的数据类型（比如double）
+ * 例：System.out.println(5 / 2.5); 结果是 2.0   原因是：int类型的 5 自动转换为 5.0 再去和 2.5 运算
+ * 三目运算符中也是如此会把 精度低的数据类型 自动转换成 精度高的数据类型
  */

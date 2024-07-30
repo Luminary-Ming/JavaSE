@@ -1095,8 +1095,6 @@ if (index == -1) {
 System.arraycopy( source, srcPos, dest, destPos, length );
 ```
 
-复制source数组中从下标srcPos开始的length个元素到目标数组dest，
-
 并从目标数组的下标为destPos的位置开始储存 ，其中各个参数的含义如下：
 
 @source：源数组  
@@ -1108,6 +1106,65 @@ System.arraycopy( source, srcPos, dest, destPos, length );
 @destPos：目标数组中的起始位置 
 
 @length：要复制的数组元素的个数
+
+```java
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4, 5, 6};
+        int[] arr2 = new int[arr1.length];
+        int[] arr3 = new int[arr1.length];
+
+        System.arraycopy(arr1, 0, arr2, 0, arr1.length);
+        System.out.println(Arrays.toString(arr2));  // [1, 2, 3, 4, 5, 6]
+
+        System.arraycopy(arr1, 2, arr3, 2, arr1.length - 2);
+        System.out.println(Arrays.toString(arr3));  // [0, 0, 3, 4, 5, 6]
+    }
+}
+```
+
+
+
+数组的另一种复制——扩容
+
+```java
+Array.copyOf(source , new lentgh)
+```
+
+source：要复制的数组
+
+new lentgh：新的数组长度
+
+```java
+import java.util.Arrays;
+
+public class Array01 {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4, 5, 6};
+
+        // 数组扩容
+        arr1 = Arrays.copyOf(arr1, arr1.length + 1);
+        System.out.println(Arrays.toString(arr1));  // [1, 2, 3, 4, 5, 6, 0]
+        // 扩容后给末尾元素赋值
+        arr1[arr1.length - 1] = 7;
+        System.out.println(Arrays.toString(arr1));  // [1, 2, 3, 4, 5, 6, 7]
+    }
+}
+
+class Array02 {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4, 5, 6};
+        int[] arr2 = new int[arr1.length];
+        // 数组复制后并扩容
+        arr2 = Arrays.copyOf(arr1, arr1.length + 1);
+        System.out.println(Arrays.toString(arr2));  // [1, 2, 3, 4, 5, 6, 0]
+    }
+}
+```
+
+
 
 
 
