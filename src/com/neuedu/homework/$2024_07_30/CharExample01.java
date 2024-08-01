@@ -30,5 +30,9 @@ public class CharExample01 {
         System.out.println("其中大写字母的个数n=" + n);
         System.out.println("m、n中的较大者:" + Math.max(m, n));
     }
-
 }
+//  请输入任意一组字符：
+//  aaaAAABBB123
+//  其中大写字母的个数m=6
+//  其中大写字母的个数n=3
+//  m、n中的较大者:6

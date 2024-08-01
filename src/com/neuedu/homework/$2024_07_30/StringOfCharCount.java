@@ -21,3 +21,6 @@ public class StringOfCharCount {
         System.out.println(count);
     }
 }
+//  请输入两个字符串：
+//  fjsdfzxeedfdfeeedlfe
+//  6

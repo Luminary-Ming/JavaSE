@@ -1,16 +1,26 @@
 package com.neuedu.test;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
-public class Main {
+public class Main extends Object{
+
     public static void main(String[] args) {
-        int[] arr1 = {1, 2, 3, 4, 5, 6};
-        int[] arr2 = new int[arr1.length];
-        // 数组复制后并扩容
-        arr2 = Arrays.copyOf(arr1, arr1.length + 1);
-        System.out.println(Arrays.toString(arr2));  // [1, 2, 3, 4, 5, 6, 0]
+        HashSet  set1  =  new  HashSet();
+        set1.add("元素1");
+        set1.add("元素2");
+        HashSet  set2  =  new  HashSet(set1);
+        HashSet  set3  =  new  HashSet(10);
+        HashSet  set4  =  new  HashSet(10,0.8f);
     }
+    
+    
+    
+    
+    
+    
 }
+  
 
 
 

@@ -25,7 +25,9 @@ public class DateTest {
             String nowTime2 = line[0] + "-" + line[1] + "-" + line[2] + " " + line[3] + ":" + line[4] + ":" + line[5];
             Date date = simpleDateFormat.parse(nowTime2);
             System.out.println("北京时间为：" + simpleDateFormat.format(date.getTime()));
+            // 纽约时间比北京时间晚12个小时
             System.out.println("纽约时间为：" + simpleDateFormat.format(date.getTime() - 12 * 60 * 60 * 1000));
+            // 巴黎时间比北京时间晚7个小时
             System.out.println("巴黎时间为：" + simpleDateFormat.format(date.getTime() - 7 * 60 * 60 * 1000));
         }
 

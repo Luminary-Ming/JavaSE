@@ -17,3 +17,7 @@ public class StringOfNumberSum {
         System.out.println(num1 + num2);
     }
 }
+//  请输入两个字符串：
+//  114511
+//  5656
+//  120167.0

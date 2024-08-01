@@ -53,3 +53,13 @@ public class Student {
         this.sname = sname;
     }
 }
+
+class StudentTest{
+    public static void main(String[] args) {
+        Student student1 = new Student(114511,"王德发");
+        Student student2 = new Student(114511,"王德发");
+        Student student3 = new Student(114512,"王德柱");
+        System.out.println(student1.equals(student2));  // true
+        System.out.println(student1.equals(student3));  // false
+    }
+}

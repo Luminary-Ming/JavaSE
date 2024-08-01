@@ -56,9 +56,9 @@ public class StudentSecond {
 
 class StudentSecondTest {
     public static void main(String[] args) {
-        StudentSecond student = new StudentSecond(1, "张三", "56");
+        StudentSecond student = new StudentSecond(114511, "张三", "56");
         System.out.println("id:" + student.getId() + " " + student.getSname() + " " + "原年龄："
                 + student.getSage() + " " + "调用方法后年龄：" + student.sageAdd());
     }
 }
-// id:1 张三 原年龄：56 调用方法后年龄：57
+// id:114511 张三 原年龄：56 调用方法后年龄：57

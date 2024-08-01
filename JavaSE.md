@@ -2462,6 +2462,30 @@ class Chinese {
 
 
 
+静态方法在本类中可以直接调用，不一定用类名调用。
+
+```java
+public class Icebox {
+    public static void putThings(String string){
+        System.out.println("大象！！！！");
+    }
+
+    public static void main(String[] args) {
+        // 本类中可以直接调用，不用写类名
+        putThings("大象");
+    }
+}
+// 其他类
+ class Mine {
+    public static void main(String args[]){
+        // 其他类只能用类名调用（或者用对象）
+        Icebox.putThings("大象");
+    }
+}
+```
+
+
+
 
 
 ### 10.3、静态代码块
