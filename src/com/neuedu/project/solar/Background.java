@@ -1,5 +1,8 @@
 package com.neuedu.project.solar;
 
+/**
+ * 背景
+ */
 public class Background extends AbstractSolarObject {
 
     public Background() {
@@ -7,9 +10,9 @@ public class Background extends AbstractSolarObject {
         this.y = 0;
     }
 
-    public Background(String imgName, int width, int height) {
-        this.img = ImageUtil.getImage(imgName);
-        this.width = width;
-        this.height = height;
+    public Background(String key) {
+        this.img = ImageUtil.imgMap.get(key);
+        this.width = Constant.WINDOW_WIDTH;
+        this.height = Constant.WINDOW_HEIGHT;
     }
 }

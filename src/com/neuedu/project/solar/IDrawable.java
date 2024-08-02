@@ -9,6 +9,6 @@ public interface IDrawable {
     /**
      * 绘制的方法
      */
-    void draw(Graphics g,int width,int height);
+    void draw(Graphics g);
 
 }

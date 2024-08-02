@@ -6,40 +6,33 @@ import java.awt.event.WindowEvent;
 
 public class FrameTest extends Frame {
 
-
-
-
-
     /**
-     * ×Ô¶¨ÒåÒ»¸öÉú³É´°¿ÚµÄ·½·¨
+     * è‡ªå®šä¹‰ä¸€ä¸ªç”Ÿæˆçª—å£çš„æ–¹æ³•
      */
     public void loadFrame() {
-        // ´°¿ÚÎ»ÖÃ
+        // çª—å£ä½ç½®
         this.setLocation(400, 100);
-        // ´°¿Ú´óĞ¡£¨¿í¸ß£©
+        // çª—å£å¤§å°ï¼ˆå®½é«˜ï¼‰
         this.setSize(Constant.WINDOW_WIDTH, Constant.WINDOW_HEIGHT);
-        // null£ºÄ¬ÈÏÏà¶ÔÓÚÆÁÄ»Ë®Æ½ºÍ´¹Ö±¾ÓÖĞ
+        // nullï¼šé»˜è®¤ç›¸å¯¹äºå±å¹•æ°´å¹³å’Œå‚ç›´å±…ä¸­
         this.setLocationRelativeTo(null);
-        // ¿É·ÃÎÊĞÔ£¨Ä¬ÈÏ false£©
+        // å¯è®¿é—®æ€§ï¼ˆé»˜è®¤ falseï¼‰
         this.setVisible(true);
-        // ¿É¸Ä±ä´°¿Ú´óĞ¡£¨ÉìËõ Ä¬ÈÏÊÇtrue£©
+        // å¯æ”¹å˜çª—å£å¤§å°ï¼ˆä¼¸ç¼© é»˜è®¤æ˜¯trueï¼‰
         this.setResizable(false);
-        // ÉèÖÃ±êÌâ
-        this.setTitle("Ì«ÑôÏµ°Ë´óĞĞĞÇÔËĞĞ¹ì¼££¡£¡\uD83C\uDF0C\uD83C\uDF0C\uD83C\uDF0C");
-        // ÉèÖÃlogo
+        // è®¾ç½®æ ‡é¢˜
+        this.setTitle("å¤ªé˜³ç³»å…«å¤§è¡Œæ˜Ÿè¿è¡Œè½¨è¿¹ï¼ï¼\uD83C\uDF0C\uD83C\uDF0C\uD83C\uDF0C");
+        // è®¾ç½®logo
 
-        // ÄäÃûÄÚ²¿Àà
+        // åŒ¿åå†…éƒ¨ç±»
         this.addWindowListener(new WindowAdapter() {
-            // ¹Ø±Õ´°¿Ú
+            // å…³é—­çª—å£
             @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         });
     }
-
-
-
 
     public static void main(String[] args) {
         new FrameTest().loadFrame();

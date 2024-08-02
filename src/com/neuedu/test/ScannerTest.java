@@ -10,8 +10,8 @@ public class ScannerTest {
 
         System.out.println(line2 + "a" + line1);
     }
-
 }
+
 /**
  * 1. next()
  * next()：对第一个输入的有效字符之前遇到的空格键、Tab键或Enter键等结束符，

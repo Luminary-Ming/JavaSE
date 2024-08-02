@@ -28,6 +28,9 @@ public class Planet extends AbstractSolarObject {
      */
     private int shortAxis;
 
+    /**
+     * theta角度
+     */
     private double theta;
 
     /**
@@ -35,15 +38,20 @@ public class Planet extends AbstractSolarObject {
      */
     private double speed;
 
+    /**
+     * 判断是否是小行星，默认值：false
+     */
+    private boolean smallPlanet;
 
     public Planet() {
     }
 
-    public Planet(AbstractSolarObject center, String no, String name, double au, double e, int t, String imgName, int width, int height) {
+    public Planet(AbstractSolarObject center, String no, String name, double au, double e
+            , int t, String key) {
         this.center = center;
-        this.img = ImageUtil.getImage(imgName);
-        this.width = width;
-        this.height = height;
+        this.img = ImageUtil.imgMap.get(key);
+        this.width = img.getWidth(null);
+        this.height = img.getHeight(null);
 
         this.no = no;
         this.name = name;
@@ -51,42 +59,42 @@ public class Planet extends AbstractSolarObject {
         this.shortAxis = getshortAxisByE(e) / 2;
         this.theta = 0.0;
         this.speed = getSpeedByT(t);
-        this.x = this.center.x + center.width / 2 - this.width + this.longAxis;
-        this.y = this.center.y + center.height / 2 - this.height;
+        this.x = this.center.x + this.center.width / 2 - this.width / 2 + longAxis;
+        this.y = this.center.y + this.center.height / 2 - this.height / 2;
+    }
+
+    public Planet(AbstractSolarObject center, String no, String name, double au, double e
+            , int t, String key, boolean smallPlanet) {
+        this(center, no, name, au, e, t, key);
+        this.smallPlanet = smallPlanet;
     }
 
     @Override
     public void move() {
-        x = (int) (longAxis * Math.cos(theta));
-        y = (int) (shortAxis * Math.sin(theta));
+        x = (int) (longAxis * Math.cos(theta) + this.center.x + this.center.width / 2 - this.width / 2);
+        y = (int) (shortAxis * Math.sin(theta) + this.center.y + this.center.height / 2 - this.height / 2);
         theta += speed;
-        System.out.println("地球的x坐标" + this.x);
-        System.out.println("地球的y坐标" + this.y);
+        //System.out.println("地球的x坐标" + this.x);
+        // System.out.println("地球的y坐标" + this.y);
     }
 
-    public void draw(Graphics g, int width, int height) {
-        super.draw(g, this.width, this.height);
-        drawTrace(g);
+    public void draw(Graphics g) {
+        if (!smallPlanet) {
+            drawTrace(g);
+        }
+        super.draw(g);
+        move();
+
     }
 
     private void drawTrace(Graphics g) {
-        int x = center.x + center.width / 2 - longAxis - 50;
+        int x = center.x + center.width / 2 - longAxis;
         int y = center.y + center.height / 2 - shortAxis;
-        int width = 2 * longAxis + 100;
+        int width = 2 * longAxis;
         int height = 2 * shortAxis;
         g.setColor(Color.WHITE);
         g.drawOval(x, y, width, height);
-    }
-
-    public void run() {
-        while (true) {
-            move();
-        }
-    }
-
-    public void move(int x, int y) {
-        this.x = this.x + x;
-        this.y = this.y + y;
+        g.drawRect(this.x, this.y, this.width, this.height);
     }
 
 
@@ -111,7 +119,7 @@ public class Planet extends AbstractSolarObject {
      * @return 单位时间线速度方向的改变量
      */
     private double getSpeedByT(int t) {
-        return 365.0 / t * 0.1;
+        return 365.0 / t * Constant.SPEED_RATH;
     }
 
 
