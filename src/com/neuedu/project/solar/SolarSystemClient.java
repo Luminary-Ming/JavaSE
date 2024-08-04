@@ -53,6 +53,8 @@ public class SolarSystemClient extends MyFrame {
         uranus.draw(g);
         neptune.draw(g);
 
+        super.paint(g);
+
     }
 
 

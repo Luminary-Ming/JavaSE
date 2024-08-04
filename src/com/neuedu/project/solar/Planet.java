@@ -81,6 +81,8 @@ public class Planet extends AbstractSolarObject {
     public void draw(Graphics g) {
         if (!smallPlanet) {
             drawTrace(g);
+            g.setColor(Color.WHITE);
+            g.drawString(this.no + "." + this.name, x, y);
         }
         super.draw(g);
         move();

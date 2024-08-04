@@ -197,7 +197,7 @@ int number = 1000;
 
 在程序中往往会存在变量值不需要变化的情况，比如表示圆周率的变量，比如表示黄金分割点的变量，那么这些值不允许发生改变的变量就叫常量。
 
-在Java中，常量用关键字 final 来表示（在后面章节会详细讲解），它也是有数据类型的，语法如下：
+在Java中，常量用关键字 final 来表示，它也是有数据类型的，语法如下：
 
 final  数据类型   常量名（大写） =  初始值;
 
@@ -281,7 +281,7 @@ A 的十进制ASCII码是 65
 
 
 
-Java还允许使用转义字符来表示特殊字符。转义字符用斜杠"\"打头，后面跟一个字符。
+Java还允许使用转义字符来表示特殊字符。转义字符用反斜杠" \ "打头，后面跟一个字符。
 
 常见的转义字符如下表。
 
@@ -2445,18 +2445,20 @@ class Chinese {
 使用静态方法须注意：
 
 1. 静态方法里只能直接访问静态成员，而不能直接访问类中的非静态成员
+
 2. 静态方法中不能使用this、super关键字
+
 3. 静态方法不能被非静态方法覆盖，static不能修饰构造方法
-4. 静态方法也有方法的重载（两个必须都是静态方法）
-5. 不能定义与静态方法名相同的普通方法
+
+4. 静态方法也有方法的重载（方法的重载与修饰符无关）
+
+   
 
 例：静态方法中不能使用this、super关键字
 
 ![image-20240727095955014](JavaSE.assets/image-20240727095955014.png)
 
-例：静态方法不能被非静态方法覆盖，static不能修饰构造方法
-
-![image-20240727100856680](JavaSE.assets/image-20240727100856680.png)
+例：static不能修饰构造方法
 
 ![image-20240727101112991](JavaSE.assets/image-20240727101112991.png)
 
@@ -3148,6 +3150,8 @@ class 类名 [extends 父类] implements 接口列表{
 2. 逻辑错误：逻辑错误，也就是程序设计中常说的 Bug，一般存在逻辑错误的程序都是可以顺利的被编译器编译通过的，并且也能够顺利运行，但是得出的结果却并不是我们所希望的。
 3. 异常：异常就是运行期间出现的错误，而不是编译时的语法错误和逻辑错误，异常的最大特征是可以预判可能发生，但无法完全避免。
 
+4. 错误： 错误不是异常，而是脱离程序员控制的问题，错误在代码中通常被忽略。例如，当栈溢出时，一个错误就发生了，它们在编译也检查不到的。
+
 
 
 **常见的异常有：**
@@ -3170,7 +3174,11 @@ class 类名 [extends 父类] implements 接口列表{
 
 ## 2、异常类的继承关系
 
+![image-20240803103207711](JavaSE.assets/image-20240803103207711.png)
+
 ![image-20240729200517423](JavaSE.assets/image-20240729200517423.png)
+
+
 
 Throwable 类描述了所有被虚拟机抛出的非正常状况。它的两个子类是 Error、Exception。
 
@@ -3207,7 +3215,7 @@ Throwable 类描述了所有被虚拟机抛出的非正常状况。它的两个�
   ```java
   try {
       // 可能会抛出异常的代码
-  } catch (NullPointerException e) {
+  } catch (RuntimeException e) {
       // 处理异常的代码
   }
   ```
@@ -3242,6 +3250,32 @@ try{
 
 
 
+**注意：**
+
+1. catch块，是用来捕获并处理try块抛出的异常的代码块。
+2. 没有try块，catch块不能单独存在。我们可以有多个catch块，以捕获不同类型的异常
+3. 多个 catch() 块时，大的异常类型后捕获
+4. try{…}和catch( ){…}之间不可以添加任何代码
+
+```java
+try {
+    while (i < 6) {
+        j = j - 1;
+        num[i] = i;
+        System.out.print(num[i] + "/" + j + "=");
+        System.out.println(num[i] / j);
+        i++;
+    }
+} catch (ArrayIndexOutOfBoundsException e) {
+     System.out.println("数组越界异常");
+     // 大的异常类型后捕获
+} catch (RuntimeException e) {
+     e.printStackTrace("运行时异常");
+}
+```
+
+
+
 Java 提供了以下关键字和类来支持异常处理：
 
 - **try**：用于包裹可能会抛出异常的代码块。
@@ -3255,6 +3289,23 @@ Java 提供了以下关键字和类来支持异常处理：
 
 
 
+## 4、finally 关键字
+
+无论是否发生异常，finally 代码块中的代码总会被执行。
+
+finally子句只能有一个。
+
+```java
+try{
+  // 程序代码
+}catch(异常类型1 异常的变量名1){
+  // 程序代码
+}catch(异常类型2 异常的变量名2){
+  // 程序代码
+}finally{
+  // 程序代码（总是被执行）
+}
+```
 
 
 
@@ -3262,22 +3313,70 @@ Java 提供了以下关键字和类来支持异常处理：
 
 
 
+## 5、throws 关键字  声明异常
+
+throws关键字使用语法：
+
+1. throws位置：方法参数列表的后面
+2. throws关键字后面，可以跟多个异常，中间用逗号分割
+3. throws关键字声明的异常，由调用该方法的方法处理。
+
+
+
+用throws声明方法声明异常，不进行处理。谁调用谁负责处理
+
+```java
+class Exception_Test {
+    public static void main(String[] args) {
+        try {
+            test();
+        } catch (Exception e) {
+            System.out.println("主方法捕获处理异常");
+        }
+        System.out.println("程序正常结束！");
+    }
+
+    public static void test() throws ArithmeticException {
+        System.out.println(10/0);
+    }
+}
+```
 
 
 
 
 
+## 6、throw 关键字  抛出异常
+
+可以使用 **throw** 关键字抛出异常，例如：在方法中判断 num 是否小于 0，如果是则抛出一个 IllegalArgumentException 异常。
+
+```java
+public void checkNumber(int num) {
+  if (num < 0) {
+    throw new IllegalArgumentException("Number must be positive");
+  }
+}
+```
+
+
+
+throw语句后不允许有其他语句，因为这些语句没有机会执行
+
+![image-20240803105324673](JavaSE.assets/image-20240803105324673.png)
 
 
 
 
 
+## 7、自定义异常类型
 
+异常类型是可以自定义的，只要继承Exception类或者Exception的子类即可，而且建议以单词Exception结尾。
 
-
-
-
-
+```java
+public class  MyException extends Exception{
+    
+}
+```
 
 
 
@@ -3285,13 +3384,656 @@ Java 提供了以下关键字和类来支持异常处理：
 
 # 九、**常见工具类-高级篇**
 
+- java.lang：Java语言包, 该包中提供了利用Java语言进行程序设计的基础类，比如String、Math、System类，该包中的类不需要使用import语句进行导入，都会被自动导入。
+- java.util：该包中主要包含一些实用的工具类，比如集合框架类、日期处理类、字符串解析类、随机数生成类等。
+- java.awt：该包中主要包含处理用户界面和绘制图形图像的各种类。
+- java.io：该包中主要包含处理输入、输出编程的各种类。
+- java.net：该包中主要包含处理网络编程的各种类。
+- java.sql：该包中主要包含处理数据库编程的各种类。
+
+
+
+## 1、Object 类
+
+```java
+import java.util.Objects;
+
+/**
+ * Object 类中的方法
+ */
+public class ObjectTest {
+    public static void main(String[] args) {
+
+        ObjectTest o1 = new ObjectTest();
+        ObjectTest o2 = new ObjectTest();
+
+        System.out.println(o1 == o2);  // false
+        // Object 类中的 equals() 方法比较是地址，不是对象内容（因此一般重写Object中的方法）
+        System.out.println(o1.equals(o2));  // false
+
+        // Object 类中的 toString() 方法是输出对象的内存地址（因此一般重写Object中的方法）
+        System.out.println(o1.toString());  // java.lang.Object@4eec7777
+    }
+
+    /**
+     * Object 类中的 equals()
+     */
+    public boolean equals(Object obj) {
+        return (this == obj);
+    }
+
+    /**
+     * Object 类中的 toString()
+     */
+    public String toString() {
+        return getClass().getName() + "@" + Integer.toHexString(hashCode());
+    }
+}
+
+
+/**
+ * 实际项目中重写 Object 中的方法
+ */
+class User {
+    int id;
+    String name;
+    String age;
+
+    public User(int id, String name, String age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        // 比较字符串的地址是否相同
+        return id == user.id && Objects.equals(name, user.name) && Objects.equals(age, user.age);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age='" + age + '\'' +
+                '}';
+    }
+
+    public static void main(String[] args) {
+        User o1 = new User(1, "abc", "88");
+        User o2 = new User(1, "abc", "88");
+
+
+        System.out.println(o1.id == o2.id);  // true
+
+        // 相当于：
+        // String str1 = "abc";
+        // String str2 = "abc";
+        // System.out.println(str1.equals(str2));
+        System.out.println(o1.name.equals(o2.name));  // true
+        System.out.println(o1.age.equals(o2.age));  // true
+    }
+}
+```
+
+
+
+
+
+## 2、包装类
+
+包装类型和基本数据类型的名字基本相同，首字母变成了大写，但是int和char的包装类型为Integer和Character。
+
+基本数据类型不是对象层次结构的组成部分。有时需要像处理对象一样处理这些基本数据类型，可通过相应的“包装类”来将其“包装”。
+
+基本数据类型及其包装类型：
+
+| **基本**类型 | **包装**类 |
+| :----------- | ---------- |
+| byte         | Byte       |
+| short        | Short      |
+| int          | Integer    |
+| long         | Long       |
+| float        | Float      |
+| double       | Double     |
+| char         | Character  |
+| boolean      | Boolean    |
+
+基本数据类型的变量没有默认值，而包装类型的变量默认值是 null。
+
+
+
+### 2.1 包装类能够完成数据类型之间（除boolean）的相互转换。
+
+```java
+int a = 10;
+//将int类型转换为Integer类型
+Integer b = new Integer(a);
+//将Integer类型的对象转换为int类型
+int c = b.inValue();
+```
+
+
+
+### 2.3 Integer类内部的常用方法
+
+#### （1）parseInt方法
+
+该方法的作用是将数字字符串转换为int数值，如果字符串包含非数字字符，则程序执行将出现异常。
+
+```java
+String str = "123";
+int n = Integer.parseInt(str);
+```
+
+
+
+#### （2）toString方法
+
+该方法的作用是将int类型转换为对应的String类型。
+
+```java
+int n = 123456;
+String str = Integer.toString(n);
+```
+
+
+
+
+
+## 3、字符串类
+
+String类对象的内容一旦被初始化就不能再改变，对它的任何修改实际上又产生一个新的字符串。
+
+String类是final类型的类，不能被继承，所有的方法不允许被覆盖。
+
+
+
+### 3.1 String对象的创建
+
+1. 静态方式（常用）：直接给变量赋值，
+
+```java
+String　s1　=　"abc";　 
+String　s2　=　"abc";　
+```
+
+2. 动态方式：使用new运算符动态的给变量赋值，
+
+```java
+String　s3　=　new　String("abc"); 
+String　s4　=　new　String("abc");
+```
+
+这两种方式创建的字符串对象是有区别的。
+
+区别在于：
+
+使用静态方式创建的字符串，如果前后两次创建的字符串内容相同，则在堆区的常量池中只会产生一个字符串对象，即两个引用指向同一块地址。
+
+而使用动态方式创建的字符串，不管前后两次创建的字符串内容是否相同，每创建一次，都会在堆内存中会产生出不同的对象，即两个引用指向不同的地址。
+
+![image-20240804112801446](JavaSE.assets/image-20240804112801446.png)
+
+
+
+### 3.2 String 对象的不可变性
+
+任何一个String对象在创建之后都不能对它的内容作出任何改变。 
+
+String的不可变性具体讲就是每个String的实例会包含一个名为 **private final char []**  value的字符数组实例，一旦一个String类被实例后，这个value是不会被改变的，即具有不可变性（immutability）。
+
+String还包含一个hash字段，它的值取决于value的内容，value不变hash也不会改变的，所以String是一个不可变类。
+
+例：
+
+```java
+String　s　=　"Java";
+s　=　"HTML";
+```
+
+第一条语句创建了一个内容为"Java"的String对象，并将其引用赋值给s。
+
+第二条语句创建了一个内容为"HTML"的新String对象，并将其引用赋值给s。
+
+赋值后第一个String对象仍然存在，但是不能再访问它，因为变量s现在指向了新的对象HTML，如图所示。
+
+![image-20240804113511348](JavaSE.assets/image-20240804113511348.png)
+
+上图字符串是不可改变的，一旦创建，它们的内容不能修改。
+
+
+
+### 3.3 字符串与数组之间的转换
+
+字符串可以转换成 字节数组 和 字符数组
+
+
+
+1. 字符串转字符数组
+
+```java
+String str = "Java";
+char[] chars = str.toCharArray();
+```
+
+2. 字符数组转字符串
+
+```java
+char[ ] chr = new char[]{'j' ,'a' ,'v' ,'a'};
+// 方法一
+String str1 = new String( chr );
+System.out.println(str1);  // java
+// 方法二
+String str2 = String.valueOf(chr);
+System.out.println(str2);  // java
+```
+
+
+
+3. 字符串转字节数组,（统计一个字符串所占用的字节数）
+
+- 方法一   默认编码
+
+```java
+String str = "Java语言程序设计";
+byte[] bytes = str.getBytes();
+System.out.println(bytes.length);
+```
+
+- 方法二  指定编码     字母占一个字节，一个中文汉字（GBK 是占2个字节，UTF-8 是占3个字节）
+
+```java
+import java.nio.charset.Charset;
+String str = "Java语言程序设计";
+byte[] bytes = str.getBytes(Charset.forName ("GBK"));
+System.out.println(bytes.length);  // 16
+```
+
+```java
+import java.nio.charset.Charset;
+String str = "Java语言程序设计";
+byte[] bytes = str.getBytes(Charset.forName ("UTF-8"));
+System.out.println(bytes.length);  // 22
+```
+
+
+
+
+
+### 3.4 StringBuffer 和 StringBuilder 类
+
+StringBuffer和StringBuilder用法基本相同。StringBuilder和 StringBuffer 之间的最大不同在于 StringBuilder 的方法不是线程安全的（不能同步访问）。由于 StringBuilder 相较于 StringBuffer 有速度优势，所以多数情况下建议使用 StringBuilder 类。
+
+
+
+StringBuilder常用方法：
+
+```java
+        // 初始时指定缓冲器的长度
+        StringBuilder sb = new StringBuilder(10);
+        sb.append("Runoob..");
+        System.out.println(sb);  
+        sb.append("!");
+        System.out.println(sb); 
+        sb.insert(8, "Java");
+        System.out.println(sb); 
+        sb.delete(5,8);
+        System.out.println(sb);  
+```
+
+```java
+Runoob..
+Runoob..!
+Runoob..Java!
+RunooJava!
+```
+
+![image-20240804154816360](JavaSE.assets/image-20240804154816360.png)
+
+
+
+## 4、Date 类
+
+
+
+![image-20240804155451912](JavaSE.assets/image-20240804155451912.png)
+
+```java
+import java.util.Date;
+
+Date now = new Date();
+System.out.println(now);  // Sun Aug 04 15:51:22 CST 2024
+
+Date d1 = new Date(1000);
+System.out.println(now.after(d1));  // true
+System.out.println(now.before(d1));  // false
+System.out.println(now.compareTo(d1));  // 1
+```
+
+Date类不支持国际化。现在我们更应该多使用Calendar类来实现日期和时间字段之间转换，使用DateFormat类来格式化和分析日期字符串，而Date中的相应方法已废弃。
+
+ 
+
+## 5、Calender 类
+
+#### 5.1 Calendar 类对象信息的获得
+
+```java
+import java.util.Calendar;
+
+Calendar c1 = Calendar.getInstance();  // 创建一个代表系统当前日期的Calendar对象
+int year = c1.get(Calendar.YEAR);  // 年份
+int month = c1.get(Calendar.MONTH) + 1;  // 月份
+int date = c1.get(Calendar.DATE);  //日期
+int hour = c1.get(Calendar.HOUR_OF_DAY);  // 小时
+int minute = c1.get(Calendar.MINUTE);  // 分钟
+int second = c1.get(Calendar.SECOND);  // 秒
+int day = c1.get(Calendar.DAY_OF_WEEK);  // 星期几
+System.out.println("年份：" + year);  // 年份：2024
+System.out.println("月份：" + month);  // 月份：8
+System.out.println("日期：" + date);  // 日期：4
+System.out.println("小时：" + hour);  // 小时：18
+System.out.println("分钟：" + minute);  // 分钟：1
+System.out.println("秒：" + second);  // 秒：39
+// 在Calendar类中，周日是1，周一是2，周二是3，依次类推。
+System.out.println("星期：" + day);  // 星期：1
+```
+
+
+
+#### 5.2 Calendar 类的一些方法
+
+**(1) add()方法**
+
+该方法的作用是在Calendar对象中的某个字段上增加或减少一定的数值，增加时amount的值为正，减少时amount的值为负。
+
+例如：计算一下当前时间100天以后的日期
+
+```java
+Calendar c2 = Calendar.getInstance();
+c2.add(Calendar.DATE, 100);
+int year = c2.get(Calendar.YEAR);
+int month = c2.get(Calendar.MONTH) + 1; //月份
+int date = c2.get(Calendar.DATE); //日期
+System.out.println(year + "年" + month + "月" + date + "日");  // 2024年11月12日
+```
+
+
+
+**(2) after()方法**
+
+该方法的作用是判断一个日期对象是否在另一个日期对象的后面，如果是返回true，否则返回false。
+
+另外一个类似的方法是before()，该方法是判断当前日期对象是否位于另外一个日期对象之前。
+
+例：c4 是否在 c3 后面
+
+```java
+Calendar c3 = Calendar.getInstance();
+c3.set(2009, 10 - 1, 10);
+Calendar c4 = Calendar.getInstance();
+c4.set(2010, 10 - 1, 10);
+boolean b = c4.after(c3);  // true
+System.out.println(b);
+```
+
+
+
+**(3) getTime()方法**
+
+该方法的作用是将 Calendar 类型的对象转换为对应的 Date 类对象，两者代表相同的时间点。
+
+类似的方法是 setTime()，该方法的作用是将 Date 对象转换为对应的 Calendar 对象
+
+```java
+Calendar c5 = Calendar.getInstance();
+//Calendar 类型的对象转换为Date对象
+Date d1 = c5.getTime();
+
+Date d2 = new Date();
+//Date 类型的对象转换为Calendar对象
+Calendar c6 = Calendar.getInstance();
+c6.setTime(d2);
+```
+
+
+
+## 6、SimpleDateFormat 类
+
+SimpleDateFormat使得可以选择任何用户定义的日期-时间格式的模式
+
+```java
+import java.text.SimpleDateFormat;
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+```
+
+
+
+6.1 字符串转日期
+
+```java
+SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+Date date= null;
+try {
+    date = sdf.parse("2002-10-28 15:30:22");
+} catch (ParseException e) {
+    throw new RuntimeException(e);
+}
+System.out.println(date);  // Mon Oct 28 15:30:22 CST 2002
+```
+
+
+
+6.2 日期转字符串
+
+```java
+SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+String date = sdf.format(new Date());
+System.out.println(date);  // 2024-08-04 18:36:29
+```
+
+
+
+
+
 # 十、**集合框架**
+
+![image-20240804184946727](JavaSE.assets/image-20240804184946727.png)
+
+Java 集合框架主要包括两种类型的容器，一种是集合（Collection），存储一个元素集合，另一种是图（Map），存储键/值对映射。
+
+Collection 接口又有 3 种子类型，List、Set 和 Queue，再下面是一些抽象类，最后是具体实现类，常用的有 ArrayList、LinkedList、HashSet、LinkedHashSet、HashMap、LinkedHashMap 等等。
+
+
+
+Set和List的区别
+
+- Set 接口实例存储的是无序的，不重复的数据。
+- List 接口实例存储的是有序的，可以重复的元素。
+- Set 检索效率低下，删除和插入效率高，插入和删除不会引起元素位置改变 <实现类有HashSet,TreeSet>。
+- List 和数组类似，可以动态增长，根据实际存储的数据的长度自动增长 List 的长度。查找元素效率高，插入删除效率低，因为会引起其他元素位置改变 <实现类有ArrayList,LinkedList,Vector>。
+
+
+
+
+
+## 10.1 集合
+
+Java数组与集合的区别主要有两点：
+
+- 数组是容器，它的长度是固定的，不会自动扩充，数组中既可以存放基本数据类型也能存放引用数据类型的引用。
+- 集合也是一种容器，它的长度是可变的，集合中只能存放引用数据类型的引用。
+
+
+
+## 10.2 Collection接口
+
+![image-20240804193442673](JavaSE.assets/image-20240804193442673.png)
+
+(1) 子接口 Set：无序的集合，不允许重复。Set 接口的实现类：HashSet　
+
+(2) 子接口 List：有序的集合，允许重复。List 接口的实现类：ArrayList、LinkedList
+
+
+
+### 10.2.1 List
+
+```java
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+// 创建一个 ArrayList对象（面向接口编程）
+// <Object> 钻石运算符（泛型）
+List<User> list = new ArrayList<>();
+list.add(new User(1, "牧之原翔子", "女"));
+list.add(new User(2, "樱岛麻衣", "女"));
+list.add(new User(3, "星野爱", "女"));
+System.out.println(list);
+// 容器的元素个数
+System.out.println(list.size());
+/**
+ * 4 种输出容器元素的方式
+ */
+// 01. for 遍历容器
+for (int i = 0; i < list.size(); i++) {
+    // get(int index) 通过索引值获取 arraylist 中的元素
+    User user = list.get(i);
+    System.out.println(user);
+}
+
+// 02. 增强 for
+for (User user : list) {
+    System.out.println(user);
+}
+
+// 03. 迭代器
+Iterator<User> iterator = list.iterator();
+// 如果迭代器中有下一元素
+while (iterator.hasNext()) {
+    // 取出下一元素
+    User user = iterator.next();
+    System.out.println(user);
+}
+
+// 04. JDK8+中的 lambda表达式
+list.forEach(System.out::println);
+}
+```
+
+
+
+#### 10.2.2 ArrayList 与 LinkedList
+
+```java
+int time = 100000;
+getTimeMillisByArrayList(time);   // 使用ArrayList向结尾位置添加了1000000条数据消耗47388ms
+getTimeMillisByLinkedList(time);  // 使用LinkedList向结尾位置添加了1000000条数据消耗154ms
+}
+
+/**
+     * 通过 ArrayList 测试添加数据的时间
+     *
+     * @param n n条数据
+     */
+public static void getTimeMillisByArrayList(int n) {
+    // 获取当前系统时间的毫秒数
+    long start = System.currentTimeMillis();
+    ArrayList<Integer> arrayList = new ArrayList<>();
+    for (int i = 0; i < n; i++) {
+        arrayList.add(0, i);
+    }
+    // 获取遍历完当前系统时间的毫秒数
+    long end = System.currentTimeMillis();
+    System.out.println("使用ArrayList向结尾位置添加了" + n + "条数据消耗" + (end - start) + "ms");
+}
+
+/**
+     * 通过 LinkedList 测试添加数据的时间
+     *
+     * @param n n条数据
+     */
+public static void getTimeMillisByLinkedList(int n) {
+    // 获取当前系统时间的毫秒数
+    long start = System.currentTimeMillis();
+    LinkedList<Integer> linkedList = new LinkedList<>();
+    for (int i = 0; i < n; i++) {
+        linkedList.addFirst(i);
+    }
+    // 获取遍历完当前系统时间的毫秒数
+    long end = System.currentTimeMillis();
+    System.out.println("使用LinkedList向结尾位置添加了" + n + "条数据消耗" + (end - start) + "ms");
+}
+/**
+ * ArrayList:
+ * 特点： 动态数组，可变大小。
+ * 优点： 高效的随机访问和快速尾部插入。
+ * 缺点： 中间插入和删除相对较慢。
+ * <p>
+ * LinkedList:
+ * 特点： 双向链表，元素之间通过指针连接。
+ * 优点： 插入和删除元素高效，迭代器性能好。
+ * 缺点： 随机访问相对较慢。
+ */
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 # 十一、**文件与流-高级篇**
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 十二、**多线程**
 
-# 十三、
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

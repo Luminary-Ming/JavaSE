@@ -1,5 +1,6 @@
 package com.neuedu.demo.h_exception;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -11,6 +12,7 @@ public class ArithmeticExceptionDemo {
         try {
             // 如果为空
             if (line.isEmpty()) {
+                // TODO throw语句后不允许有其他语句（因为这些语句没有机会执行）
                 throw new ArrayIndexOutOfBoundsException();
             }
             // 根据空格符分成两个部分存放到数组

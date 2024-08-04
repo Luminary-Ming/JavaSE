@@ -34,7 +34,32 @@ public class FrameTest extends Frame {
         });
     }
 
+
+    public void paint(Graphics g) {
+
+        Graphics2D g2 = (Graphics2D) g;// 转换为Graphics2D类型
+        String value = "张金龙";// 绘制的文本
+        int x = 15; // 文本位置的横坐标
+        int y = 60; // 文本位置的纵坐标
+        Font font = new Font("楷体", Font.BOLD, 60); // 创建字体对象
+        g2.setFont(font); // 设置字体
+        // 创建循环渐变的GraphientPaint对象
+        GradientPaint paint = new GradientPaint(20, 20, Color.BLUE, 100, 120, Color.RED, true);
+        g2.setPaint(paint);// 设置渐变
+        g2.drawString(value, x, y); // 绘制文本
+
+       /* font = new Font("华文行楷", Font.BOLD, 60); // 创建新的字体对象
+        g2.setFont(font); // 设置字体
+        x = 80; // 文本位置的横坐标
+        y = 130; // 文本位置的纵坐标
+        value = "编程词典";// 绘制的文本
+        g2.drawString(value, x, y); // 绘制文本*/
+    }
+
+
     public static void main(String[] args) {
         new FrameTest().loadFrame();
+
+
     }
 }

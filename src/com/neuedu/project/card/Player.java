@@ -1,10 +1,6 @@
-package com.neuedu.task.$2024_07_31;
+package com.neuedu.project.card;
 
-import com.neuedu.demo.I_collection.User;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class Player {
@@ -71,6 +67,11 @@ public class Player {
         }
     }
 
+    public void sortCard(){
+        Arrays.sort(cards);
+    }
+
+
 
     public String getId() {
         return id;
@@ -90,10 +91,6 @@ public class Player {
 
     public String getIdentity() {
         return identity;
-    }
-
-    public void sortCard(){
-        Arrays.sort(cards);
     }
 
     public void setIdentity(String identity) {

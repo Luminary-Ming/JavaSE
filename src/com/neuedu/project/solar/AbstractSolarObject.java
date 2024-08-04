@@ -32,6 +32,7 @@ public abstract class AbstractSolarObject implements IMoveable, IDrawable {
 
     /**
      * 绘制界面
+     *
      * @param g 画笔
      */
     public void draw(Graphics g) {

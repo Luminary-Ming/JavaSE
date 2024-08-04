@@ -3,9 +3,9 @@ package com.neuedu.zany;
 /**
  * static 修饰的静态方法
  * 1. 可以直接用类名调用
- * 2. 静态方法也有方法的重载（两个必须都是静态方法）
- * 3. 不能定义与静态方法名相同的普通方法
+ * 2. 静态方法也有方法的重载（方法的重载与修饰符无关）
  * 3. static 不能修饰构造方法
+ * 4. 静态方法中不能使用this、super关键字
  */
 public class SuperCalc {
 
@@ -18,27 +18,24 @@ public class SuperCalc {
 class SubCalc extends SuperCalc {
 
     /**
-     // 静态方法
      public static int multiply(int a, int b) {
+     // TODO 静态方法中不能使用this、super关键字
      int c = super.multiply(a, b);
      return c;
      }
      */
 
-    /**
-     // 方法的重载
-     public static void multiply(int a) {
-     }
-     */
+
+    // TODO 静态方法也有方法的重载（方法的重载与修饰符无关）
+    public static void multiply(int a) {
+    }
+    // TODO 普通方法方法的重载
+    public  void multiply(double a){
+    }
+
 
     /**
-     // 报错：不能定义与静态方法名相同的普通方法
-     public  int multiply(int a, int b) {
-     }
-     */
-
-    /**
-     // 报错：static 不能修饰构造方法
+     // TODO 报错：static 不能修饰构造方法
      public static SubCalc(){}
      */
 
@@ -53,6 +50,3 @@ class TestSuper {
         System.out.println(SubCalc.multiply(2, 2));
     }
 }
-
-
-

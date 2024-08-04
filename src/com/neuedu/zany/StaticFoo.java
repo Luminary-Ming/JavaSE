@@ -1,7 +1,8 @@
 package com.neuedu.zany;
 
 /**
- * static 修饰的静态变量被所有实例（对象）共享
+ * 成员变量：只能被对象调用
+ * 静态变量：可以用类名调用，也能用对象调用，被对象共享
  */
 public class StaticFoo {
     // 成员变量
@@ -13,12 +14,15 @@ public class StaticFoo {
         StaticFoo foo1 = new StaticFoo();
         foo1.num++;
         foo1.x++;
+
         StaticFoo foo2 = new StaticFoo();
         foo2.num--;
         foo2.x++;
+
         StaticFoo foo3 = new StaticFoo();
         foo3.num++;
         foo3.x++;
+        // 类名调用静态变量
         StaticFoo.x++;
         System.out.println(foo2.num);  // -1
         System.out.println(foo3.num);  // 1

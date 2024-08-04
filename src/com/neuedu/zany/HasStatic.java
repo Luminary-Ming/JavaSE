@@ -4,11 +4,10 @@ package com.neuedu.zany;
  * 静态变量
  */
 public class HasStatic {
-
+    // 静态变量：被所有对象共享
     private static int x = 100;
 
     public static void main(String[] args) {
-
         HasStatic hs1 = new HasStatic();
         hs1.x++;
 
@@ -20,8 +19,7 @@ public class HasStatic {
 
         HasStatic.x--;
 
-        System.out.println("x =" + x);  // x =102
-
+        System.out.println("x = " + x); // x = 102
     }
 }
 /**

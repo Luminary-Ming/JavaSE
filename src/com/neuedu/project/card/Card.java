@@ -1,4 +1,4 @@
-package com.neuedu.task.$2024_07_31;
+package com.neuedu.project.card;
 
 public class Card implements Comparable<Card> {
     /**

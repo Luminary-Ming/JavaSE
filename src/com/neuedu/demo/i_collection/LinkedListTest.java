@@ -1,4 +1,4 @@
-package com.neuedu.demo.I_collection;
+package com.neuedu.demo.i_collection;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -45,6 +45,13 @@ public class LinkedListTest {
     }
 }
 /**
- * 在数组中间插入或删除元素时： LinkedList 最快
- * 在数组首尾增删元素时： ArrayList 最快
+ * ArrayList:
+ * 特点： 动态数组，可变大小。
+ * 优点： 高效的随机访问和快速尾部插入。
+ * 缺点： 中间插入和删除相对较慢。
+ * <p>
+ * LinkedList:
+ * 特点： 双向链表，元素之间通过指针连接。
+ * 优点： 插入和删除元素高效，迭代器性能好。
+ * 缺点： 随机访问相对较慢。
  */

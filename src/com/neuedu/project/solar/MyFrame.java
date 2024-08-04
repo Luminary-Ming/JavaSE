@@ -38,29 +38,30 @@ public class MyFrame extends Frame {
 
     // 解决图片闪烁的问题，用双缓冲方法解决闪烁问题
     Image backImg = null;
+
     // 重写update()方法，在窗口的里层添加一个虚拟的图片
-    public void update(Graphics g){
-        if(backImg == null){
+    public void update(Graphics g) {
+        if (backImg == null) {
             // 如果虚拟图片不存在，创建一个窗口一样大小的图片
-            backImg = createImage(Constant.WINDOW_WIDTH,Constant.WINDOW_HEIGHT);
+            backImg = createImage(Constant.WINDOW_WIDTH, Constant.WINDOW_HEIGHT);
         }
         // 获取到虚拟图片的画笔
         Graphics backg = backImg.getGraphics();
         Color c = backg.getColor();
         backg.setColor(Color.GRAY);
-        backg.fillRect(0,0,Constant.WINDOW_WIDTH,Constant.WINDOW_HEIGHT);
+        backg.fillRect(0, 0, Constant.WINDOW_WIDTH, Constant.WINDOW_HEIGHT);
         backg.setColor(c);
         // 调用虚拟图片的paint()方法，每50ms刷新一次
         paint(backg);
-        g.drawImage(backImg,0,0,null);
+        g.drawImage(backImg, 0, 0, null);
     }
 
 
     /**
      * 创建一个线程内部类
      */
-    class MyThread extends Thread{
-        public void run(){
+    class MyThread extends Thread {
+        public void run() {
             // 无限次调用 move()
             while (true) {
                 MyFrame.this.repaint();
@@ -74,9 +75,18 @@ public class MyFrame extends Frame {
     }
 
 
-
-
-
     public void paint(Graphics g) {
+
+        Graphics2D g2 = (Graphics2D) g;// 转换为Graphics2D类型
+        String value = "张金龙";// 绘制的文本
+        int x = 300; // 文本位置的横坐标
+        int y = 300; // 文本位置的纵坐标
+        Font font = new Font("楷体", Font.BOLD, 60); // 创建字体对象
+        g2.setFont(font); // 设置字体
+        // 创建循环渐变的GraphientPaint对象
+        GradientPaint paint = new GradientPaint(20, 20, Color.BLUE, 100, 120, Color.RED, true);
+        g2.setPaint(paint);// 设置渐变
+        g2.drawString(value, x, y); // 绘制文本
     }
+
 }

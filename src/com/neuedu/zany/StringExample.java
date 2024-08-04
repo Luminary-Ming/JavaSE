@@ -4,7 +4,6 @@ package com.neuedu.zany;
  * String 特殊的引用传递 和 ch[] 数组的引用传递
  */
 public class StringExample {
-
     String str = new String("good");
     // 字符串的底层是字符数组
     char[] ch = {'a', 'b', 'c'};
@@ -12,9 +11,9 @@ public class StringExample {
     public static void main(String[] args) {
         StringExample ex = new StringExample();
         ex.change(ex.str, ex.ch);
-        System.out.print(ex.str + " and ");  // good and
+        System.out.println(ex.str + " and ");  // good and
         // 只有字符数组可以这样输出，其他类型数组都需要调用 Arrays.toString() 方法
-        System.out.print(ex.ch);  // gbc
+        System.out.println(ex.ch);  // gbc
     }
 
     public void change(String str, char[] ch) {
@@ -23,7 +22,6 @@ public class StringExample {
         ch[0] = 'g';
     }
 }
-
 /**
  * 特别注意：Sting 类型比较特殊，两种理解方式
  * 1. String 是引用类型，所以是引用传递。

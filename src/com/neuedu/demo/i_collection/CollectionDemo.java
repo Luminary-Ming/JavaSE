@@ -1,4 +1,4 @@
-package com.neuedu.demo.I_collection;
+package com.neuedu.demo.i_collection;
 
 import java.util.ArrayList;
 import java.util.Iterator;
